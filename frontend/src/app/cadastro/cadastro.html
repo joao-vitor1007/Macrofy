@@ -1,0 +1,81 @@
+<div class="min-h-screen flex items-center justify-center p-6 relative overflow-hidden bg-white">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div
+      class="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[radial-gradient(circle,#6b8e23_0%,transparent_70%)] opacity-10"
+    ></div>
+    <div
+      class="absolute -bottom-32 -left-32 w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,#ffa500_0%,transparent_70%)] opacity-[0.08]"
+    ></div>
+  </div>
+
+  <div class="w-full max-w-md relative z-10">
+    <div class="mb-12 text-center">
+      <h1
+        class="mb-3 font-sora text-[3.5rem] font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-macrofy-green to-macrofy-green-light"
+      >
+        Macrofy
+      </h1>
+      <p class="text-muted-foreground">Sua jornada saudável começa aqui</p>
+    </div>
+
+    <div
+      class="bg-card rounded-3xl p-8 border border-border shadow-[0_20px_60px_rgba(107,142,35,0.15)]"
+    >
+      <h2 class="mb-6 font-sora text-[1.75rem] font-bold text-foreground">Criar conta</h2>
+
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="space-y-5">
+        <div>
+          <label for="name" class="block mb-2 text-sm font-semibold text-foreground">
+            Nome completo
+          </label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            class="w-full px-4 py-3 rounded-xl bg-input-background border-2 border-transparent focus:border-macrofy-green focus:outline-none transition-all duration-300"
+            placeholder="Digite seu nome"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block mb-2 text-sm font-semibold text-foreground">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="w-full px-4 py-3 rounded-xl bg-input-background border-2 border-transparent focus:border-macrofy-green focus:outline-none transition-all duration-300"
+            placeholder="seu@email.com"
+          />
+        </div>
+
+        <div>
+          <label for="password" class="block mb-2 text-sm font-semibold text-foreground">
+            Senha
+          </label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+            class="w-full px-4 py-3 rounded-xl bg-input-background border-2 border-transparent focus:border-macrofy-green focus:outline-none transition-all duration-300"
+            placeholder="Mínimo 6 caracteres"
+            minlength="6"
+          />
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="signupForm.invalid"
+          class="w-full py-3.5 mt-6 rounded-xl text-white font-sora font-bold text-lg bg-gradient-to-br from-macrofy-green to-macrofy-green-light shadow-[0_8px_24px_rgba(107,142,35,0.3)] transition-all duration-300 cursor-pointer hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:active:scale-100"
+        >
+          Começar agora
+        </button>
+      </form>
+
+      <p class="text-center text-sm text-muted-foreground mt-6">
+        Ao criar uma conta, você concorda com nossos termos
+      </p>
+    </div>
+  </div>
+</div>

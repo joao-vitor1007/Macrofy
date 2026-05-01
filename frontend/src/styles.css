@@ -1,3 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap');
+@import 'tailwindcss';
 
-@import "tailwindcss";
+@theme {
+  --color-macrofy-green: #6b8e23;
+  --color-macrofy-green-light: #8fbc8f;
+  --color-macrofy-orange: #ffa500;
+  --color-foreground: #1a1a1a;
+  --color-muted-foreground: #71717a;
+  --color-card: #ffffff;
+  --color-border: #e4e4e7;
+  --color-input-background: #f4f4f5;
+
+  --font-sora: 'Sora', sans-serif;
+}
