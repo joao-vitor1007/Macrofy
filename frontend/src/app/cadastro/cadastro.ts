@@ -26,7 +26,7 @@ export class Cadastro {
     if (this.signupForm.valid) {
       // Salvar dados mockados no localStorage
       localStorage.setItem('user', JSON.stringify(this.signupForm.value));
-      this.router.navigate(['/onboarding']);
+      this.router.navigate(['/passos']);
     }
   }
 }

@@ -1,0 +1,247 @@
+@if (!dietPlan) {
+  <div class="min-h-screen flex items-center justify-center">
+    <div class="text-center">
+      <div
+        class="mb-4"
+        style="
+          font-family: 'Sora', sans-serif;
+          font-size: 2rem;
+          font-weight: 800;
+          background: linear-gradient(135deg, var(--macrofy-green) 0%, var(--macrofy-green-light) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        "
+      >
+        Gerando sua dieta...
+      </div>
+      <div class="text-muted-foreground">Calculando seus macros personalizados</div>
+    </div>
+  </div>
+} @else {
+  <div class="min-h-screen p-6" style="font-family: 'DM Sans', sans-serif">
+    <div class="max-w-6xl mx-auto">
+      
+      <div @fadeInDown class="flex justify-between items-center mb-8">
+        <div>
+         <h1 class="text-4xl font-extrabold bg-gradient-to-br from-[var(--color-macrofy-green)] to-[var(--color-macrofy-green-light)] bg-clip-text text-transparent font-['Sora']">
+  Macrofy
+</h1>
+          <p class="text-muted-foreground">Acompanhe sua dieta</p>
+        </div>
+        <button
+          (click)="handleLogout()"
+          class="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-border hover:border-destructive hover:text-destructive transition-all hover:scale-105 active:scale-95"
+          style="font-family: 'Sora', sans-serif; font-weight: 600"
+        >
+          <lucide-icon [img]="LogOut" [size]="18"></lucide-icon>
+          Sair
+        </button>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-6">
+        
+        <div @fadeInLeft class="bg-card rounded-3xl p-8 border border-border shadow-lg h-fit">
+          <h2
+            class="mb-6"
+            style="font-family: 'Sora', sans-serif; font-size: 1.75rem; font-weight: 700"
+          >
+            Sua Dieta
+          </h2>
+
+          <div class="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 mb-6">
+            <h3 class="text-sm text-muted-foreground mb-4" style="font-weight: 600">
+              META DIÁRIA
+            </h3>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="mb-1" style="font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary)">
+                  {{ dietPlan.dailyMacros.calories }}
+                </div>
+                <div class="text-sm text-muted-foreground">Calorias</div>
+              </div>
+              <div>
+                <div class="mb-1" style="font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary)">
+                  {{ dietPlan.dailyMacros.protein }}g
+                </div>
+                <div class="text-sm text-muted-foreground">Proteínas</div>
+              </div>
+              <div>
+                <div class="mb-1" style="font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary)">
+                  {{ dietPlan.dailyMacros.carbs }}g
+                </div>
+                <div class="text-sm text-muted-foreground">Carboidratos</div>
+              </div>
+              <div>
+                <div class="mb-1" style="font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary)">
+                  {{ dietPlan.dailyMacros.fats }}g
+                </div>
+                <div class="text-sm text-muted-foreground">Gorduras</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4 mb-6">
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm" style="font-weight: 600">Calorias</span>
+                <span class="text-sm text-muted-foreground">
+                  {{ consumedMacros.calories }} / {{ dietPlan.dailyMacros.calories }}
+                </span>
+              </div>
+              <div class="h-3 bg-muted rounded-full overflow-hidden">
+                <div
+                  class="h-full rounded-full bg-gradient-to-r from-chart-1 to-chart-2 transition-all duration-500 ease-out"
+                  [style.width.%]="getPercentage(consumedMacros.calories, dietPlan.dailyMacros.calories)"
+                ></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm" style="font-weight: 600">Proteínas</span>
+                <span class="text-sm text-muted-foreground">
+                  {{ consumedMacros.protein }}g / {{ dietPlan.dailyMacros.protein }}g
+                </span>
+              </div>
+              <div class="h-3 bg-muted rounded-full overflow-hidden">
+                <div
+                  class="h-full rounded-full bg-gradient-to-r from-accent to-chart-2 transition-all duration-500 ease-out"
+                  [style.width.%]="getPercentage(consumedMacros.protein, dietPlan.dailyMacros.protein)"
+                ></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm" style="font-weight: 600">Carboidratos</span>
+                <span class="text-sm text-muted-foreground">
+                  {{ consumedMacros.carbs }}g / {{ dietPlan.dailyMacros.carbs }}g
+                </span>
+              </div>
+              <div class="h-3 bg-muted rounded-full overflow-hidden">
+                <div
+                  class="h-full rounded-full bg-gradient-to-r from-chart-3 to-chart-4 transition-all duration-500 ease-out"
+                  [style.width.%]="getPercentage(consumedMacros.carbs, dietPlan.dailyMacros.carbs)"
+                ></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between mb-2">
+                <span class="text-sm" style="font-weight: 600">Gorduras</span>
+                <span class="text-sm text-muted-foreground">
+                  {{ consumedMacros.fats }}g / {{ dietPlan.dailyMacros.fats }}g
+                </span>
+              </div>
+              <div class="h-3 bg-muted rounded-full overflow-hidden">
+                <div
+                  class="h-full rounded-full bg-gradient-to-r from-chart-5 to-primary transition-all duration-500 ease-out"
+                  [style.width.%]="getPercentage(consumedMacros.fats, dietPlan.dailyMacros.fats)"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h3
+              class="mb-4"
+              style="font-family: 'Sora', sans-serif; font-size: 1.25rem; font-weight: 700"
+            >
+              Refeições sugeridas
+            </h3>
+            <div class="space-y-3 max-h-96 overflow-y-auto pr-2">
+              @for (meal of dietPlan.meals; track meal.name; let i = $index) {
+                <div
+                  [@fadeInUp]="{ value: '', params: { delay: i * 50 } }"
+                  class="bg-muted/50 rounded-xl p-4"
+                >
+                  <div class="flex justify-between items-start mb-2">
+                    <div>
+                      <div style="font-family: 'Sora', sans-serif; font-weight: 700">{{ meal.name }}</div>
+                      <div class="text-xs text-muted-foreground">{{ meal.time }}</div>
+                    </div>
+                    <div class="text-xs text-muted-foreground">
+                      {{ meal.macros.calories }} kcal
+                    </div>
+                  </div>
+                  <ul class="text-sm space-y-1">
+                    @for (food of meal.foods; track food) {
+                      <li class="text-muted-foreground">• {{ food }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div @fadeInRight class="bg-card rounded-3xl border border-border shadow-lg flex flex-col" style="height: calc(100vh - 180px); max-height: 800px">
+          <div class="p-6 border-b border-border">
+            <h2 style="font-family: 'Sora', sans-serif; font-size: 1.75rem; font-weight: 700">
+              Registrar Refeições
+            </h2>
+            <p class="text-sm text-muted-foreground mt-1">
+              Digite o que você comeu e eu calculo os macros
+            </p>
+          </div>
+
+          <div class="flex-1 overflow-y-auto p-6 space-y-4">
+            @for (message of messages; track message.id) {
+              <div
+                @fadeInUp
+                class="flex gap-3"
+                [ngClass]="{ 'flex-row-reverse': message.role === 'user' }"
+              >
+                <div
+                  class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  [ngClass]="message.role === 'user' ? 'bg-accent' : 'bg-primary'"
+                >
+                  @if (message.role === 'user') {
+                    <lucide-icon [img]="User" [size]="16" class="text-white"></lucide-icon>
+                  } @else {
+                    <lucide-icon [img]="Bot" [size]="16" class="text-white"></lucide-icon>
+                  }
+                </div>
+                
+                <div
+                  class="max-w-[75%] px-4 py-3 rounded-2xl"
+                  [ngClass]="message.role === 'user' ? 'bg-accent text-white' : 'bg-muted text-foreground'"
+                  [style.border-top-left-radius]="message.role === 'assistant' ? '4px' : '16px'"
+                  [style.border-top-right-radius]="message.role === 'user' ? '4px' : '16px'"
+                >
+                  <div class="whitespace-pre-wrap text-sm">{{ message.content }}</div>
+                </div>
+              </div>
+            }
+            <div #chatEndRef></div>
+          </div>
+
+          <div class="p-6 border-t border-border">
+            <div class="flex gap-3">
+              <input
+                type="text"
+                [(ngModel)]="inputValue"
+                (keydown.enter)="handleSendMessage()"
+                placeholder="Ex: 2 ovos mexidos com 1 pão integral"
+                class="flex-1 px-4 py-3 rounded-xl bg-input-background border-2 border-transparent focus:border-primary focus:outline-none transition-all"
+              />
+              <button
+                (click)="handleSendMessage()"
+                class="px-6 py-3 rounded-xl text-white flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform"
+                style="
+                  background: linear-gradient(135deg, var(--macrofy-green) 0%, var(--macrofy-green-light) 100%);
+                  font-family: 'Sora', sans-serif;
+                  font-weight: 700;
+                "
+              >
+                <lucide-icon [img]="Send" [size]="18"></lucide-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+}
