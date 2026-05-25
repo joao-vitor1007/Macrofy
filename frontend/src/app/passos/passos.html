@@ -142,7 +142,6 @@
           </button>
         }
 
-        @if (currentStep.type === 'input') {
           <button
             (click)="handleNext()"
             [disabled]="!canProceed"
@@ -163,7 +162,6 @@
             {{ step === steps.length - 1 ? 'Finalizar' : 'Próximo' }}
             <lucide-icon [img]="ArrowRight" [size]="20"></lucide-icon>
           </button>
-        }
       </div>
     </div>
   </div>
