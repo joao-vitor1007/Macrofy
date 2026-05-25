@@ -1,5 +1,3 @@
-// src/utils/dietGenerator.ts
-
 export interface Macros {
   calories: number;
   protein: number;
@@ -17,38 +15,28 @@ export interface DietPlan {
   }[];
 }
 
-/**
- * Função 1: Gera a dieta baseada no perfil salvo no localStorage
- */
 export function generateDietPlan(profile: any): DietPlan {
-  // 1. Valores base caso o perfil venha vazio
   let baseCalories = 2000;
-  let proteinRatio = 0.3; // 30% das calorias
-  let carbsRatio = 0.45;  // 45% das calorias
-  let fatsRatio = 0.25;   // 25% das calorias
+  let proteinRatio = 0.3;
+  let carbsRatio = 0.45;
+  let fatsRatio = 0.25;
 
   if (profile) {
-    // Busca as respostas do usuário (adapte os nomes 'objetivo'/'goal' conforme seu passo a passo)
-    // Converte tudo para minúsculo (JSON.stringify) para facilitar a busca da palavra
     const profileString = JSON.stringify(profile).toLowerCase();
 
     if (profileString.includes('perder') || profileString.includes('emagrecer') || profileString.includes('cutting')) {
-      // Déficit calórico
       baseCalories = 1600;
-      proteinRatio = 0.4; // Mais proteína para segurar a massa magra
+      proteinRatio = 0.4;
       carbsRatio = 0.3;
       fatsRatio = 0.3;
     } else if (profileString.includes('ganhar') || profileString.includes('hipertrofia') || profileString.includes('bulking')) {
-      // Superávit calórico
       baseCalories = 2700;
       proteinRatio = 0.3;
-      carbsRatio = 0.5;   // Muito carboidrato para dar energia
+      carbsRatio = 0.5;
       fatsRatio = 0.2;
     }
   }
 
-  // 2. Calculando os macros diários reais
-  // (Proteína = 4 kcal/g, Carbo = 4 kcal/g, Gordura = 9 kcal/g)
   const dailyMacros = {
     calories: baseCalories,
     protein: Math.round((baseCalories * proteinRatio) / 4),
@@ -56,7 +44,6 @@ export function generateDietPlan(profile: any): DietPlan {
     fats: Math.round((baseCalories * fatsRatio) / 9),
   };
 
-  // 3. Montando as refeições do dia dividindo os macros totais
   return {
     dailyMacros,
     meals: [
@@ -108,20 +95,14 @@ export function generateDietPlan(profile: any): DietPlan {
   };
 }
 
-/**
- * Função 2: Calcula macros baseado no texto digitado no chat (Mock de IA)
- */
 export function calculateFoodMacros(foodInput: string): Macros {
   const input = foodInput.toLowerCase();
   
-  // Valores iniciais
   const macros = { calories: 0, protein: 0, carbs: 0, fats: 0 };
 
-  // Busca a quantidade digitada (ex: "2 ovos" -> pega o número 2). Se não tiver, assume 1.
   const qtdMatch = input.match(/\d+/);
   const qtd = qtdMatch ? parseInt(qtdMatch[0], 10) : 1;
 
-  // Lógica simples de palavras-chave para simular a inteligência da IA
   if (input.includes('ovo')) {
     macros.calories += 70 * qtd;
     macros.protein += 6 * qtd;
@@ -137,8 +118,6 @@ export function calculateFoodMacros(foodInput: string): Macros {
   }
 
   if (input.includes('frango')) {
-    // Se digitou frango, assume que o multiplicador é de porções de 100g
-    // Ex: "200g de frango" vai multiplicar por 2
     const portion = qtd > 10 ? qtd / 100 : qtd; 
     macros.calories += Math.round(165 * portion);
     macros.protein += Math.round(31 * portion);
@@ -161,9 +140,7 @@ export function calculateFoodMacros(foodInput: string): Macros {
     macros.fats += 1 * qtd;
   }
 
-  // Se a pessoa digitou um alimento que não está mapeado no IF acima
   if (macros.calories === 0) {
-    // Retorna um valor "coringa" para o app não ficar zerado e as barras progredirem
     macros.calories = 150 * qtd;
     macros.protein = 5 * qtd;
     macros.carbs = 20 * qtd;
