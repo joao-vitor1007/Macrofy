@@ -2,16 +2,7 @@
   <div class="min-h-screen flex items-center justify-center">
     <div class="text-center">
       <div
-        class="mb-4"
-        style="
-          font-family: 'Sora', sans-serif;
-          font-size: 2rem;
-          font-weight: 800;
-          background: linear-gradient(135deg, var(--macrofy-green) 0%, var(--macrofy-green-light) 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        "
+        class="mb-4 font-['Sora',_sans-serif] text-[2rem] font-extrabold bg-gradient-to-br from-[var(--macrofy-green)] to-[var(--macrofy-green-light)] bg-clip-text text-transparent"
       >
         Gerando sua dieta...
       </div>
@@ -19,20 +10,20 @@
     </div>
   </div>
 } @else {
-  <div class="min-h-screen p-6" style="font-family: 'DM Sans', sans-serif">
+  <div class="min-h-screen p-6 font-['DM_Sans',_sans-serif]">
     <div class="max-w-6xl mx-auto">
-      
       <div @fadeInDown class="flex justify-between items-center mb-8">
         <div>
-         <h1 class="text-4xl font-extrabold bg-gradient-to-br from-[var(--color-macrofy-green)] to-[var(--color-macrofy-green-light)] bg-clip-text text-transparent font-['Sora']">
-  Macrofy
-</h1>
+          <h1
+            class="text-4xl font-extrabold bg-gradient-to-br from-[var(--color-macrofy-green)] to-[var(--color-macrofy-green-light)] bg-clip-text text-transparent font-['Sora']"
+          >
+            Macrofy
+          </h1>
           <p class="text-muted-foreground">Acompanhe sua dieta</p>
         </div>
         <button
           (click)="handleLogout()"
-          class="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-border hover:border-destructive hover:text-destructive transition-all hover:scale-105 active:scale-95"
-          style="font-family: 'Sora', sans-serif; font-weight: 600"
+          class="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-border hover:border-destructive hover:text-destructive transition-all hover:scale-105 active:scale-95 font-['Sora',_sans-serif] font-semibold"
         >
           <lucide-icon [img]="LogOut" [size]="18"></lucide-icon>
           Sair
@@ -40,40 +31,34 @@
       </div>
 
       <div class="grid lg:grid-cols-2 gap-6">
-        
         <div @fadeInLeft class="bg-card rounded-3xl p-8 border border-border shadow-lg h-fit">
-          <h2
-            class="mb-6"
-            style="font-family: 'Sora', sans-serif; font-size: 1.75rem; font-weight: 700"
-          >
+          <h2 class="mb-6 font-['Sora',_sans-serif] text-[1.75rem] font-bold">
             Sua Dieta
           </h2>
 
           <div class="bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 mb-6">
-            <h3 class="text-sm text-muted-foreground mb-4" style="font-weight: 600">
-              META DIÁRIA
-            </h3>
+            <h3 class="text-sm text-muted-foreground mb-4 font-semibold">META DIÁRIA</h3>
             <div class="grid grid-cols-2 gap-4">
               <div>
-                <div class="mb-1" style="font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary)">
+                <div class="mb-1 font-['Sora',_sans-serif] text-[2rem] font-extrabold text-[var(--primary)]">
                   {{ dietPlan.dailyMacros.calories }}
                 </div>
                 <div class="text-sm text-muted-foreground">Calorias</div>
               </div>
               <div>
-                <div class="mb-1" style="font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary)">
+                <div class="mb-1 font-['Sora',_sans-serif] text-[2rem] font-extrabold text-[var(--primary)]">
                   {{ dietPlan.dailyMacros.protein }}g
                 </div>
                 <div class="text-sm text-muted-foreground">Proteínas</div>
               </div>
               <div>
-                <div class="mb-1" style="font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary)">
+                <div class="mb-1 font-['Sora',_sans-serif] text-[2rem] font-extrabold text-[var(--primary)]">
                   {{ dietPlan.dailyMacros.carbs }}g
                 </div>
                 <div class="text-sm text-muted-foreground">Carboidratos</div>
               </div>
               <div>
-                <div class="mb-1" style="font-family: 'Sora', sans-serif; font-size: 2rem; font-weight: 800; color: var(--primary)">
+                <div class="mb-1 font-['Sora',_sans-serif] text-[2rem] font-extrabold text-[var(--primary)]">
                   {{ dietPlan.dailyMacros.fats }}g
                 </div>
                 <div class="text-sm text-muted-foreground">Gorduras</div>
@@ -84,7 +69,7 @@
           <div class="space-y-4 mb-6">
             <div>
               <div class="flex justify-between mb-2">
-                <span class="text-sm" style="font-weight: 600">Calorias</span>
+                <span class="text-sm font-semibold">Calorias</span>
                 <span class="text-sm text-muted-foreground">
                   {{ consumedMacros.calories }} / {{ dietPlan.dailyMacros.calories }}
                 </span>
@@ -92,14 +77,16 @@
               <div class="h-3 bg-muted rounded-full overflow-hidden">
                 <div
                   class="h-full rounded-full bg-gradient-to-r from-chart-1 to-chart-2 transition-all duration-500 ease-out"
-                  [style.width.%]="getPercentage(consumedMacros.calories, dietPlan.dailyMacros.calories)"
+                  [style.width.%]="
+                    getPercentage(consumedMacros.calories, dietPlan.dailyMacros.calories)
+                  "
                 ></div>
               </div>
             </div>
 
             <div>
               <div class="flex justify-between mb-2">
-                <span class="text-sm" style="font-weight: 600">Proteínas</span>
+                <span class="text-sm font-semibold">Proteínas</span>
                 <span class="text-sm text-muted-foreground">
                   {{ consumedMacros.protein }}g / {{ dietPlan.dailyMacros.protein }}g
                 </span>
@@ -107,14 +94,16 @@
               <div class="h-3 bg-muted rounded-full overflow-hidden">
                 <div
                   class="h-full rounded-full bg-gradient-to-r from-accent to-chart-2 transition-all duration-500 ease-out"
-                  [style.width.%]="getPercentage(consumedMacros.protein, dietPlan.dailyMacros.protein)"
+                  [style.width.%]="
+                    getPercentage(consumedMacros.protein, dietPlan.dailyMacros.protein)
+                  "
                 ></div>
               </div>
             </div>
 
             <div>
               <div class="flex justify-between mb-2">
-                <span class="text-sm" style="font-weight: 600">Carboidratos</span>
+                <span class="text-sm font-semibold">Carboidratos</span>
                 <span class="text-sm text-muted-foreground">
                   {{ consumedMacros.carbs }}g / {{ dietPlan.dailyMacros.carbs }}g
                 </span>
@@ -129,7 +118,7 @@
 
             <div>
               <div class="flex justify-between mb-2">
-                <span class="text-sm" style="font-weight: 600">Gorduras</span>
+                <span class="text-sm font-semibold">Gorduras</span>
                 <span class="text-sm text-muted-foreground">
                   {{ consumedMacros.fats }}g / {{ dietPlan.dailyMacros.fats }}g
                 </span>
@@ -144,10 +133,7 @@
           </div>
 
           <div>
-            <h3
-              class="mb-4"
-              style="font-family: 'Sora', sans-serif; font-size: 1.25rem; font-weight: 700"
-            >
+            <h3 class="mb-4 font-['Sora',_sans-serif] text-[1.25rem] font-bold">
               Refeições sugeridas
             </h3>
             <div class="space-y-3 max-h-96 overflow-y-auto pr-2">
@@ -158,12 +144,12 @@
                 >
                   <div class="flex justify-between items-start mb-2">
                     <div>
-                      <div style="font-family: 'Sora', sans-serif; font-weight: 700">{{ meal.name }}</div>
+                      <div class="font-['Sora',_sans-serif] font-bold">
+                        {{ meal.name }}
+                      </div>
                       <div class="text-xs text-muted-foreground">{{ meal.time }}</div>
                     </div>
-                    <div class="text-xs text-muted-foreground">
-                      {{ meal.macros.calories }} kcal
-                    </div>
+                    <div class="text-xs text-muted-foreground">{{ meal.macros.calories }} kcal</div>
                   </div>
                   <ul class="text-sm space-y-1">
                     @for (food of meal.foods; track food) {
@@ -176,9 +162,12 @@
           </div>
         </div>
 
-        <div @fadeInRight class="bg-card rounded-3xl border border-border shadow-lg flex flex-col" style="height: calc(100vh - 180px); max-height: 800px">
+        <div
+          @fadeInRight
+          class="bg-card rounded-3xl border border-border shadow-lg flex flex-col h-[calc(100vh-180px)] max-h-[800px]"
+        >
           <div class="p-6 border-b border-border">
-            <h2 style="font-family: 'Sora', sans-serif; font-size: 1.75rem; font-weight: 700">
+            <h2 class="font-['Sora',_sans-serif] text-[1.75rem] font-bold">
               Registrar Refeições
             </h2>
             <p class="text-sm text-muted-foreground mt-1">
@@ -203,12 +192,14 @@
                     <lucide-icon [img]="Bot" [size]="16" class="text-white"></lucide-icon>
                   }
                 </div>
-                
+
                 <div
                   class="max-w-[75%] px-4 py-3 rounded-2xl"
-                  [ngClass]="message.role === 'user' ? 'bg-accent text-white' : 'bg-muted text-foreground'"
-                  [style.border-top-left-radius]="message.role === 'assistant' ? '4px' : '16px'"
-                  [style.border-top-right-radius]="message.role === 'user' ? '4px' : '16px'"
+                  [ngClass]="
+                    message.role === 'user' 
+                      ? 'bg-accent text-white rounded-tr-[4px]' 
+                      : 'bg-muted text-foreground rounded-tl-[4px]'
+                  "
                 >
                   <div class="whitespace-pre-wrap text-sm">{{ message.content }}</div>
                 </div>
@@ -228,19 +219,13 @@
               />
               <button
                 (click)="handleSendMessage()"
-                class="px-6 py-3 rounded-xl text-white flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform"
-                style="
-                  background: linear-gradient(135deg, var(--macrofy-green) 0%, var(--macrofy-green-light) 100%);
-                  font-family: 'Sora', sans-serif;
-                  font-weight: 700;
-                "
+                class="px-6 py-3 rounded-xl text-white flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform bg-gradient-to-br from-[var(--macrofy-green)] to-[var(--macrofy-green-light)] font-['Sora',_sans-serif] font-bold"
               >
                 <lucide-icon [img]="Send" [size]="18"></lucide-icon>
               </button>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
