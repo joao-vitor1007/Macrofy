@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CadastroUserService } from './cadastro.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './cadastro.html',
 })
 export class Cadastro {
+  private cadastroUserService = inject(CadastroUserService);
   signupForm: FormGroup;
 
   constructor(
@@ -22,11 +24,23 @@ export class Cadastro {
     });
   }
 
-  onSubmit(): void {
+  createUser() {
     if (this.signupForm.valid) {
-      // Salvar dados mockados no localStorage
-      localStorage.setItem('user', JSON.stringify(this.signupForm.value));
-      this.router.navigate(['/passos']);
+      const { name, email, password } = this.signupForm.value;
+      console.log({
+        name,
+        email,
+        password,
+      });
+      this.cadastroUserService.createUser({ name, email, password }).subscribe({
+        next: () => {
+          this.router.navigate(['/passos']);
+        },
+        error: (err) => {
+          console.error('Erro ao criar usuário:', err);
+          alert(err + 'Erro ao criar usuário. Tente novamente.');
+        },
+      });
     }
   }
 }
