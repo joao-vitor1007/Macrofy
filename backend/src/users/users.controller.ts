@@ -21,26 +21,26 @@ export class UsersController {
     return this.usersService.createUser(createUserDto);
   }
 
-  @Get('findAll')
-  findAll() {
-    return this.usersService.findAll();
+  @Get('findUsers')
+  findUsers() {
+    return this.usersService.findUsers();
   }
 
-  @Get('findOne/:id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.findOne(id);
+  @Get('findUserById/:id')
+  findUserById(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.findUserById(id);
   }
 
-  @Patch('update/:id')
-  update(
+  @Patch('updateUser/:id')
+  updateUser(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    return this.usersService.update(id, updateUserDto);
+    return this.usersService.updateUser(id, updateUserDto);
   }
 
-  @Delete('delete/:id')
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.remove(id);
+  @Delete('deleteUser/:id')
+  deleteUser(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.deleteUser(id);
   }
 }

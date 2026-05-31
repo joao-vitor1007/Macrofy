@@ -16,19 +16,19 @@ export class UsersService {
     return this.userRepository.save(createUserDto);
   }
 
-  findAll() {
+  findUsers() {
     return this.userRepository.find();
   }
 
-  findOne(id: number) {
+  findUserById(id: number) {
     return this.userRepository.findOne({ where: { id } });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  updateUser(id: number, updateUserDto: UpdateUserDto) {
     return this.userRepository.update(id, updateUserDto);
   }
 
-  remove(id: number) {
+  deleteUser(id: number) {
     return this.userRepository.delete(id);
   }
 }
