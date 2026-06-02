@@ -31,6 +31,11 @@ export class UsersController {
     return this.usersService.findUserById(id);
   }
 
+  @Get('login')
+  login(@Body('email') email: string, @Body('password') password: string) {
+    return this.usersService.login(email, password);
+  }
+
   @Patch('updateUser/:id')
   updateUser(
     @Param('id', ParseIntPipe) id: number,

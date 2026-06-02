@@ -20,6 +20,16 @@ export class UsersService {
     return this.userRepository.find();
   }
 
+  async login(email: string, password: string) {
+    const user = await this.userRepository.findOne({
+      where: { email, password },
+    });
+    if (!user) {
+      throw new Error('Invalid email or password');
+    }
+    return user;
+  }
+
   findUserById(id: number) {
     return this.userRepository.findOne({ where: { id } });
   }

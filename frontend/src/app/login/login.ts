@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { LoginUserService } from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -10,6 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './login.html',
 })
 export class Login {
+  private loginUserService = inject(LoginUserService);
   loginForm: FormGroup;
 
   constructor(
@@ -22,16 +24,20 @@ export class Login {
     });
   }
 
-  onSubmit() {
-    if (this.loginForm.invalid) return;
+  login() {
+    if (this.loginForm.valid) {
+      const { email, password } = this.loginForm.value;
 
-    const formData = this.loginForm.value;
-    // const storedUser = localStorage.getItem('user');
-    // if (storedUser) {
-    //   const user = JSON.parse(storedUser);
-    if (formData.email && formData.password) {
-      this.router.navigate(['/home']);
-      //TODO: quando tiver a API, fazer a autenticação e criar um modal de erro
+      this.loginUserService.login({ email, password }).subscribe({
+        next: () => {
+          this.router.navigate(['/passos']);
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+          alert(err + 'Login failed. Please try again.');
+          // TODO: Show an error message to the user
+        },
+      });
     }
   }
 }

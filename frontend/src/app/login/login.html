@@ -23,7 +23,7 @@
     >
       <h2 class="mb-6 font-sora text-[1.75rem] font-bold text-foreground">Entrar</h2>
 
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <form [formGroup]="loginForm" class="space-y-5">
         <div>
           <label for="email" class="block mb-2 text-sm font-semibold text-foreground">
             Email
@@ -54,6 +54,7 @@
           type="submit"
           [disabled]="loginForm.invalid"
           class="w-full py-3.5 mt-6 rounded-xl text-white font-sora font-bold text-lg bg-gradient-to-br from-macrofy-green to-macrofy-green-light shadow-[0_8px_24px_rgba(107,142,35,0.3)] transition-all duration-300 cursor-pointer hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:active:scale-100"
+          (click)="login()"
         >
           Entrar
         </button>

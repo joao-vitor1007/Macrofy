@@ -5,8 +5,8 @@ export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
-  name!: string;
+  @Column({ nullable: true })
+  user_name!: string;
 
   @Column()
   email!: string;
